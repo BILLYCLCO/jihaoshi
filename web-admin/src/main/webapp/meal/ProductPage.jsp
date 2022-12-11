@@ -57,21 +57,22 @@
 						</c:forEach>
 				</span> <br> <label>過敏源：</label><span>${meal.mealAllergen}</span> <br>
 					<label>價格：</label><span id="price">${meal.mealPrice}</span> <br>
-					<label>食譜：</label><span>${meal.mealRecipe}</span> <br>
+					<label>食譜：</label><span>${meal.mealRecipe}</span>
 					<form method="post" action="${ctxPath}/meal/mealController"
 						id="form1">
 						<input type="text" name="action" value="toUpdate" hidden>
 						<input type="text" value="${meal.mealNo}" name="mealNo" hidden>
-						<button type="submit" form="form1" class="button">修改資料</button>
-					</form> <label>是否上架：</label><span>${meal.launch==1?"上架中" : "未上架"}</span> <br>
+					</form>
+					<label>是否上架：</label><span>${meal.launch==1?"上架中" : "未上架"}</span> <br>
 					<label>更新時間：</label>
 				<fmt:formatDate value="${meal.updateTime}"
 						pattern="yyyy-MM-dd HH:mm:ss" /> <br>
+					<button type="submit" form="form1" class="button">修改資料</button>
 			</div>
 		</div>
 	</div>
 	<script>
-		
+
 	</script>
 </body>
 </html>

@@ -29,7 +29,7 @@
             border-collapse: collapse;
             margin: 0;
             padding: 0;
-            width: 95%;
+            width: 50%;
             table-layout: fixed;
         }
 
@@ -123,23 +123,31 @@
         </c:if>
         <table>
             <tr>
-                <th>會員編號</th>
-                <th>會員姓名</th>
-                <th>會員電話</th>
-                <th>會員暱稱</th>
-                <th>會員地址</th>
-                <th>會員e-mail</th>
-                <th>會員狀態</th>
-
+                <td>會員編號:</td>
+                <td>${MemberVO.memberNo}</td>
             </tr>
             <tr>
-
-                <td>${MemberVO.memberNo}</td>
+                <td>會員姓名:</td>
                 <td>${MemberVO.memberName}</td>
+            </tr>
+            <tr>
+                <td>會員電話:</td>
                 <td>${MemberVO.memberPhone}</td>
+            </tr>
+            <tr>
+                <td>會員暱稱:</td>
                 <td>${MemberVO.memberNickname}</td>
-                <td>${MemberVO.memberAddress}</td>
+            </tr>
+            <tr>
+                <td>會員地址:</td>
+                <td>${MemberVO.memberAddress}</td
+            </tr>
+            <tr>
+                <td>會員e-mail:</td>
                 <td>${MemberVO.memberEmail}</td>
+            </tr>
+            <tr>
+                <td>會員狀態:</td>
                 <td>${MemberVO.memberState}</td>
             </tr>
         </table>

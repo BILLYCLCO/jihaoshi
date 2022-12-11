@@ -247,13 +247,16 @@ public class MemberServlet extends HttpServlet {
 			session.removeAttribute("Guest");
 			session.setAttribute("member", member);
 			session.setAttribute("memberNo", member.getMemberNo());
-	
 
-			String location = (String) session.getAttribute("location");
-			if (location != null) {
-				session.removeAttribute("location");
-				res.sendRedirect(location);
-			}
+
+			try {
+				String location = (String) session.getAttribute("location");
+				if (location != null) {
+					session.removeAttribute("location");
+					res.sendRedirect(location);
+					return;
+				}
+			}catch (Exception ignored) { }
 			res.sendRedirect(req.getContextPath() + "/index.jsp");
 		}
 

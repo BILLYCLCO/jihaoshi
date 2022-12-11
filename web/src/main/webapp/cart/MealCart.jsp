@@ -1,5 +1,6 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ page contentType="text/html;charset=UTF-8" language="java"%>
 <html>
 <head>
@@ -69,8 +70,8 @@
 						<br> <span style="font-size: 18px">分量：${cartProd.quantity}</span>
 						<br> <span style="font-size: 18px">熱量：${cartProd.cal}</span>
 						<br> <span style="font-size: 18px">簡易食譜：${cartProd.meal.mealRecipe}</span>
-						<br> <span style="font-size: 18px">單價NT$${cartProd.meal.mealPrice}</span>
-						<br> <span style="font-size: 18px">總價NT$${cartProd.price}</span> 
+						<br> <span style="font-size: 18px">單價NT$<fmt:formatNumber value="${cartProd.meal.mealPrice*cartProd.quantity}" pattern="#,###" /></span>
+						<br> <span style="font-size: 18px">總價NT$<fmt:formatNumber value="${cartProd.price}" pattern="#,###" /> </span>
 						<br> <span style="font-size: 18px">數量：</span> <span style="font-size: 18px"
 							id="amount_value_${loop.index}">${cartProd.amount}</span>
 					</div>

@@ -269,7 +269,7 @@ public class ManagerServlet extends HttpServlet {
 			final HttpSession session = req.getSession();
 			session.removeAttribute("manager");
 			
-			res.sendRedirect(req.getContextPath() + "/index.jsp");
+			res.sendRedirect(req.getContextPath() + "/manager/login.jsp");
 		}
 	}
 }

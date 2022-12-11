@@ -135,7 +135,11 @@
                 <th>管理員狀態</th>
 
             </tr>
-            <c:forEach var="ManagerVO" items="${list}">
+            <div style="margin: 0px auto;">
+                <%@ include file="page1Mgr.file" %>
+            </div>
+            <br>
+            <c:forEach var="ManagerVO" items="${list}" begin="<%= pageIndex %>" end="<%= pageIndex+rowsPerPage-1 %>">
                 <tr>
                     <td>${ManagerVO.managerNo}</td>
                     <td>${ManagerVO.managerName}</td>
@@ -155,7 +159,8 @@
                 </tr>
             </c:forEach>
         </table>
-
+        <br>
+        <%@ include file="page2Mgr.file" %>
     </div>
 </div>
 

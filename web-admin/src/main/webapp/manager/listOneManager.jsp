@@ -29,7 +29,7 @@
             border-collapse: collapse;
             margin-left: 20%;
             padding: 0;
-            width: 60%;
+            width: 50%;
             table-layout: fixed;
         }
 

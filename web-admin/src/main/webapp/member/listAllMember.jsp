@@ -137,8 +137,11 @@
                         <th>會員e-mail</th>
                         <th>會員狀態</th>
 
-                    </tr>
-                    <c:forEach var="MemberVO" items="${list}">
+                    </tr><div style="margin: 0px auto;">
+                    <%@ include file="page1Mem.file" %>
+                </div>
+                    <br>
+                    <c:forEach var="MemberVO" items="${list}" begin="<%= pageIndex %>" end="<%= pageIndex+rowsPerPage-1 %>">
                         <tr>
                             <td>${MemberVO.memberNo}</td>
                             <td>${MemberVO.memberName}</td>
@@ -161,10 +164,8 @@
                         </tr>
                     </c:forEach>
                 </table>
-
-
-
-
+        <br>
+        <%@ include file="page2Mem.file" %>
         </div>
     </div>
 
