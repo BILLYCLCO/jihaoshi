@@ -185,87 +185,88 @@ public class phyCouPromotionDetailServlet extends HttpServlet {
 				successView.forward(req, res);
 		}
 
-        if ("insert".equals(action)) {   
-			Map<String, String> errorMsgs = new LinkedHashMap<String, String>();
-			// Store this set in the request scope, in case we need to
-			// send the ErrorPage view.
-			req.setAttribute("errorMsgs", errorMsgs);
-
-				/***********************1.接收請求參數 - 輸入格式的錯誤處理*************************/
-
-			String project_name = req.getParameter("project_name");
-			if (project_name == null || project_name.trim().length() == 0) {
-				errorMsgs.put("project_name", "專案名稱 請勿空白");
-			}
+//        if ("insert".equals(action)) {   
+//			Map<String, String> errorMsgs = new LinkedHashMap<String, String>();
+//			// Store this set in the request scope, in case we need to
+//			// send the ErrorPage view.
+//			req.setAttribute("errorMsgs", errorMsgs);
+//
+//				/***********************1.接收請求參數 - 輸入格式的錯誤處理*************************/
+//
+//			String project_name = req.getParameter("project_name");
+//			if (project_name == null || project_name.trim().length() == 0) {
+//				errorMsgs.put("project_name", "專案名稱 請勿空白");
+//			}
+//			
+//			java.sql.Date start_date = null;
+//			try {				
+//				start_date = java.sql.Date.valueOf(req.getParameter("start_date").trim());
+//			} catch (IllegalArgumentException e) {
+//				start_date = new java.sql.Date(System.currentTimeMillis());
+//				errorMsgs.put("start_date", "請輸入日期!");
+//			}
+//			
+//			java.sql.Date end_date = null;
+//			try {				
+//				end_date = java.sql.Date.valueOf(req.getParameter("end_date").trim());
+//			} catch (IllegalArgumentException e) {
+//				end_date = new java.sql.Date(System.currentTimeMillis());
+//				errorMsgs.put("end_date", "請輸入日期!");
+//			}
+//			
+//			String prom_description = req.getParameter("prom_description").trim();
+//			if (prom_description == null || prom_description.trim().length() == 0) {
+//				errorMsgs.put("prom_description", "促銷活動敘述 請勿空白");
+//			}
+//			
+//			Integer prom_status = null;
+//			try {		
+//				prom_status = Integer.valueOf(req.getParameter("prom_status").trim()); 
+//			} catch (Exception e) {
+//				errorMsgs.put("prom_status", "專案狀態 請填數字");
+//			}
+//						
+//			String tep_proCous = null;
+//			tep_proCous= req.getParameter("proCous").trim();
+//			String[] proCous = tep_proCous.split(",");
+//	
+//			for ( int i = 0; i < proCous.length; i++)
+//			{
+//				try {
+//					proCous[i] = proCous[i].trim();
+//					Integer.valueOf(proCous[i]);
+//				} catch (Exception e) {
+//					errorMsgs.put("proCous", "課程代碼 請填數字");
+//				}
+//			}
+//				
+//			Integer prom_price = null;
+//			try {		
+//				prom_price = Integer.valueOf(req.getParameter("prom_price").trim()); 
+//			} catch (Exception e) {
+//				errorMsgs.put("prom_price", "促銷打折內容 請填數字");
+//			}
 			
-			java.sql.Date start_date = null;
-			try {				
-				start_date = java.sql.Date.valueOf(req.getParameter("start_date").trim());
-			} catch (IllegalArgumentException e) {
-				start_date = new java.sql.Date(System.currentTimeMillis());
-				errorMsgs.put("start_date", "請輸入日期!");
-			}
-			
-			java.sql.Date end_date = null;
-			try {				
-				end_date = java.sql.Date.valueOf(req.getParameter("end_date").trim());
-			} catch (IllegalArgumentException e) {
-				end_date = new java.sql.Date(System.currentTimeMillis());
-				errorMsgs.put("end_date", "請輸入日期!");
-			}
-			
-			String prom_description = req.getParameter("prom_description").trim();
-			if (prom_description == null || prom_description.trim().length() == 0) {
-				errorMsgs.put("prom_description", "促銷活動敘述 請勿空白");
-			}
-			
-			Integer prom_status = null;
-			try {		
-				prom_status = Integer.valueOf(req.getParameter("prom_status").trim()); 
-			} catch (Exception e) {
-				errorMsgs.put("prom_status", "專案狀態 請填數字");
-			}
-						
-			String tep_proCous = null;
-			tep_proCous= req.getParameter("proCous").trim();
-			String[] proCous = tep_proCous.split(",");
-	
-			for ( int i = 0; i < proCous.length; i++)
-			{
-				try {
-					proCous[i] = proCous[i].trim();
-					Integer.valueOf(proCous[i]);
-				} catch (Exception e) {
-					errorMsgs.put("proCous", "課程代碼 請填數字");
-				}
-			}
-				
-			Integer prom_price = null;
-			try {		
-				prom_price = Integer.valueOf(req.getParameter("prom_price").trim()); 
-			} catch (Exception e) {
-				errorMsgs.put("prom_price", "促銷打折內容 請填數字");
-			}
-		
-        
-				// Send the use back to the form, if there were errors
-				if (!errorMsgs.isEmpty()) {
-//					req.setAttribute("phyCouPromotionVO", phyCouPromotionVO); 
-					RequestDispatcher failureView = req
-							.getRequestDispatcher("/phyCouPromotion/addPro.jsp");
-					failureView.forward(req, res);
-					return;
-				}
-				
-				/***************************2.開始新增資料***************************************/
-				PhyCouPromotionService phyCouPromotionSvc = new PhyCouPromotionService();
-				Integer project_no = phyCouPromotionSvc.addPhyCouPromotion(project_name, start_date, end_date, prom_description, prom_status, prom_price, proCous);
-				
-				/***************************3.新增完成,準備轉交(Send the Success view)***********/
-				String url = "/phyCouPromotion/listAllPro.jsp";
-				RequestDispatcher successView = req.getRequestDispatcher(url); 
-				successView.forward(req, res);				
-		}
+//			
+//        
+//				// Send the use back to the form, if there were errors
+//				if (!errorMsgs.isEmpty()) {
+////					req.setAttribute("phyCouPromotionVO", phyCouPromotionVO); 
+//					RequestDispatcher failureView = req
+//							.getRequestDispatcher("/phyCouPromotion/addPro.jsp");
+//					failureView.forward(req, res);
+//					return;
+//				}
+//				
+//				/***************************2.開始新增資料***************************************/
+//				PhyCouPromotionService phyCouPromotionSvc = new PhyCouPromotionService();
+//				Integer project_no = phyCouPromotionSvc.addPhyCouPromotion(project_name, start_date, end_date, prom_description, prom_status, prom_price, proCous);
+//				
+//				/***************************3.新增完成,準備轉交(Send the Success view)***********/
+//				String url = "/phyCouPromotion/listAllPro.jsp";
+//				RequestDispatcher successView = req.getRequestDispatcher(url); 
+//				successView.forward(req, res);				
+//		}
         
 		
 		

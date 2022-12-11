@@ -11,13 +11,15 @@ import com.phyCouPromotionDetail.model.PhyCouPromotionDetailVO;
 public class PhyCouPromotionService {
 
 	private PhyCouPromotionDAO_interface dao;
+    java.util.Date du = new java.util.Date();
+  	java.sql.Date update_time = new java.sql.Date(du.getTime());
 
 	public PhyCouPromotionService() {
 		dao = new PhyCouPromotionHibernateDAO();
 	}
 
 	public Integer addPhyCouPromotion(String project_name, java.sql.Date start_date, 
-				java.sql.Date end_date, String prom_description, Integer prom_status, Integer prom_price, String[] proCous) {
+				java.sql.Date end_date, String prom_description, Integer prom_status, Integer prom_price, String[] proCous, java.sql.Timestamp update_time) {
 				
 		PhyCouPromotionVO phyCouPromotionVO = new PhyCouPromotionVO();
 		Set<PhyCouPromotionDetailVO> set = new HashSet<PhyCouPromotionDetailVO>();
@@ -39,6 +41,7 @@ public class PhyCouPromotionService {
 		phyCouPromotionVO.setProm_description(prom_description);
 		phyCouPromotionVO.setProm_status(prom_status);
 		phyCouPromotionVO.setPhyCouPromotionDetails(set);
+		phyCouPromotionVO.setUpdate_time(update_time);
 		Integer project_no = dao.insert(phyCouPromotionVO);
 		
 		
@@ -46,7 +49,7 @@ public class PhyCouPromotionService {
 	}
 
 	public PhyCouPromotionVO updatePhyCouPromotion(Integer project_no, String project_name, java.sql.Date start_date, 
-			java.sql.Date end_date, String prom_description, Integer prom_status, String[] proCous, Integer prom_price) {
+			java.sql.Date end_date, String prom_description, Integer prom_status, String[] proCous, Integer prom_price, java.sql.Timestamp update_time) {
 
 //		PhyCouPromotionVO phyCouPromotionVO = new PhyCouPromotionVO();
 //		Set<PhyCouPromotionDetailVO> set = new HashSet<PhyCouPromotionDetailVO>();
@@ -83,9 +86,6 @@ public class PhyCouPromotionService {
 			PhyCouPromotionDetailVO VO = null;
 			phyCouPromotionVO.setProject_no(project_no);
 			
-			System.out.println("======================");
-			System.out.println(phyCouPromotionVO);
-			System.out.println("======================");
 			for (int i = 0 ; i < proCous.length ; i++) {
 				VO = new PhyCouPromotionDetailVO();
 				phyCouVO = new PhyCouVO();
@@ -104,14 +104,11 @@ public class PhyCouPromotionService {
 			phyCouPromotionVO.setEnd_date(end_date);
 			phyCouPromotionVO.setProm_description(prom_description);
 			phyCouPromotionVO.setProm_status(prom_status);
+			phyCouPromotionVO.setUpdate_time(update_time);
 //			phyCouPromotionVO.setPhyCouPromotionDetails(set);
-			System.out.println("++++++++++++++++++++++++   dao.update前     +++++++++++++++++++++++++++++");
-			  System.out.println("=======================================================");
-			  System.out.println(phyCouPromotionVO);
-			  System.out.println(set);
-			  System.out.println("=======================================================");
-		dao.update(phyCouPromotionVO);
-		System.out.println("++++++++++++++++++++++++   dao.update後     +++++++++++++++++++++++++++++");
+
+			dao.update(phyCouPromotionVO);
+	
 
 		return phyCouPromotionVO;
 	}

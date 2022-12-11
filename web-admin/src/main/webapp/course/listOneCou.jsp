@@ -2,7 +2,14 @@
 <%@ page import="com.course.model.*"%>
 
 <%
-  PhyCouVO phyCouVO = (PhyCouVO) request.getAttribute("phyCouVO"); 
+  Integer course_no = (Integer) request.getAttribute("course_no"); 
+  PhyCouService phyCouSvc = new PhyCouService();
+  PhyCouVO phyCouVO = null;
+  if (course_no != null) {
+  	 phyCouVO = phyCouSvc.getOneCou(course_no);
+  } else {
+	  phyCouVO = (PhyCouVO) request.getAttribute("phyCouVO"); 
+  }
 %>
 
 <html>

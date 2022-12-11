@@ -192,15 +192,21 @@ public class CourseServlet extends HttpServlet {
 //				errorMsgs.add("course_status 請勿空白");
 //			}
 			
-			java.sql.Date create_date = null;
+			java.sql.Timestamp create_date = null;
 			try {				
-				create_date = java.sql.Date.valueOf(req.getParameter("create_date").trim());
+				create_date = java.sql.Timestamp.valueOf(req.getParameter("create_date").trim());
 			} catch (IllegalArgumentException e) {
-				create_date=new java.sql.Date(System.currentTimeMillis());
+				create_date=new java.sql.Timestamp(System.currentTimeMillis());
 				errorMsgs.put("create", "請輸入日期!");
 			}
 			
-			java.sql.Date update_time = null;
+			java.sql.Timestamp update_time = new java.sql.Timestamp(System.currentTimeMillis());
+			System.out.println("==========create_date============================");
+			System.out.println(create_date);
+			System.out.println("======================================");
+			System.out.println("===========update_time===========================");
+			System.out.println(update_time);
+			System.out.println("======================================");
 //			try {				
 //				update_time = java.sql.Date.valueOf(req.getParameter("update_time").trim());
 //			} catch (IllegalArgumentException e) {
@@ -291,9 +297,12 @@ public class CourseServlet extends HttpServlet {
 				/***************************2.開始修改資料*****************************************/
 				PhyCouService phyCouSvc = new PhyCouService();
 				PhyCouVO phyCouVO = phyCouSvc.updateCou(course_no, course_name, course_hr, course_price, course_teacher, course_date, course_location, course_info, course_status, create_date, update_time, sign_up_start_day, sign_up_end_day, max_sign_up_people, min_sign_up_people, current_sign_up_people, buf);
-				
+				System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++++");
+				System.out.println(phyCouVO); 
+				System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++++");
 				/***************************3.修改完成,準備轉交(Send the Success view)*************/
-				req.setAttribute("phyCouVO", phyCouVO); 
+//				req.setAttribute("phyCouVO", phyCouVO); 
+				req.setAttribute("course_no", course_no);
 				String url = "/course/listOneCou.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 修改成功後,轉交listOneEmp.jsp
 				successView.forward(req, res);
@@ -363,6 +372,9 @@ public class CourseServlet extends HttpServlet {
 //					errorMsgs.add("course_status 請勿空白");
 //				}
 				
+				java.sql.Timestamp create_date = new java.sql.Timestamp(System.currentTimeMillis());
+				
+				java.sql.Timestamp update_time = new java.sql.Timestamp(System.currentTimeMillis());
 				
 				java.sql.Date sign_up_start_day = null;
 				try {				
@@ -444,7 +456,7 @@ public class CourseServlet extends HttpServlet {
 				
 				/***************************2.開始新增資料***************************************/
 				PhyCouService phyCouSvc = new PhyCouService();
-				phyCouSvc.addCou(course_name, course_hr, course_price, course_teacher, course_date, course_location, course_info, course_status, sign_up_start_day, sign_up_end_day, max_sign_up_people, min_sign_up_people, current_sign_up_people, buf);
+				phyCouSvc.addCou(course_name, course_hr, course_price, course_teacher, course_date, course_location, course_info, course_status, create_date, update_time, sign_up_start_day, sign_up_end_day, max_sign_up_people, min_sign_up_people, current_sign_up_people, buf);
 				
 				/***************************3.新增完成,準備轉交(Send the Success view)***********/
 				String url = "/course/ListAllCourse.jsp";

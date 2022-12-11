@@ -51,6 +51,7 @@ public class PhyCouPromotionHibernateDAO implements PhyCouPromotionDAO_interface
 			if (phyCouPromotionVO.getProm_status() !=  DBVO.getProm_status()) {
 				DBVO.setProm_status(phyCouPromotionVO.getProm_status());
 			}
+			DBVO.setUpdate_time(phyCouPromotionVO.getUpdate_time());
 					
 			session.getTransaction().commit();
 		} catch (RuntimeException ex) {

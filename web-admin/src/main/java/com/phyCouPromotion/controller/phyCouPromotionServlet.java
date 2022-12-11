@@ -179,14 +179,8 @@ public class phyCouPromotionServlet extends HttpServlet {
 				System.out.println("專案狀態 請填數字");
 			}
 			
-			java.sql.Date update_time = null;
-			try {				
-				update_time = java.sql.Date.valueOf(req.getParameter("update_time").trim());
-			} catch (IllegalArgumentException e) {
-				update_time = new java.sql.Date(System.currentTimeMillis());
-				errorMsgs.put("update_time", "請輸入日期!");
-				System.out.println("請輸入日期!");
-			}
+			java.sql.Timestamp update_time = new java.sql.Timestamp(System.currentTimeMillis());
+
 			
 			String tep_proCous = null;
 			tep_proCous= req.getParameter("proCous");
@@ -235,7 +229,7 @@ public class phyCouPromotionServlet extends HttpServlet {
 				
 				/***************************2.開始修改資料*****************************************/
 				PhyCouPromotionService phyCouPromotionSvc = new PhyCouPromotionService();
-				PhyCouPromotionVO phyCouPromotionVO = phyCouPromotionSvc.updatePhyCouPromotion(project_no, project_name, start_date, end_date, prom_description, prom_status, proCous, prom_price);
+				PhyCouPromotionVO phyCouPromotionVO = phyCouPromotionSvc.updatePhyCouPromotion(project_no, project_name, start_date, end_date, prom_description, prom_status, proCous, prom_price, update_time);
 				System.out.println("==========================================");
 				System.out.println(phyCouPromotionVO);
 				System.out.println("==========================================");
@@ -297,7 +291,9 @@ public class phyCouPromotionServlet extends HttpServlet {
 			} catch (Exception e) {
 				errorMsgs.put("prom_status", "專案狀態 請填數字");
 			}
-						
+			
+			java.sql.Timestamp update_time = new java.sql.Timestamp(System.currentTimeMillis());
+					
 			String tep_proCous = null;
 			tep_proCous= req.getParameter("proCous").trim();
 			String[] proCous = tep_proCous.split(",");
@@ -331,7 +327,7 @@ public class phyCouPromotionServlet extends HttpServlet {
 				
 				/***************************2.開始新增資料***************************************/
 				PhyCouPromotionService phyCouPromotionSvc = new PhyCouPromotionService();
-				Integer project_no = phyCouPromotionSvc.addPhyCouPromotion(project_name, start_date, end_date, prom_description, prom_status, prom_price, proCous);
+				Integer project_no = phyCouPromotionSvc.addPhyCouPromotion(project_name, start_date, end_date, prom_description, prom_status, prom_price, proCous, update_time);
 				
 				/***************************3.新增完成,準備轉交(Send the Success view)***********/
 				String url = "/phyCouPromotion/listAllPro.jsp";
